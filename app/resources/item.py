@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# standard python imports
 from flask_restful import Resource, reqparse
 from flask_jwt_extended import jwt_required
 from app.models.item import ItemModel

@@ -1,14 +1,10 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# standard python imports
-
 from flask import Flask
 from flask_jwt_extended import JWTManager
 from flask_restful import Api
 
 from app.resources.item import Item, ItemList
 from app.resources.store import Store, StoreList
-from app.resources.user import UserRegister, User
+from app.resources.user import Register, Login
 from app.config import postgresqlConfig
 
 app = Flask(__name__)
@@ -16,8 +12,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = postgresqlConfig
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# Setup the Flask-JWT-Extended extension
-app.config["JWT_SECRET_KEY"] = "Dese.Decent.Pups.BOOYO0OST"  # Change this!
+app.config["JWT_SECRET_KEY"] = "asdajjk3b43kjb4k34b"
 jwt = JWTManager(app)
 api = Api(app)
 
@@ -29,15 +24,12 @@ def create_tables():
     db.create_all()
 
 
-# jwt = JWT(app, authenticate, identity)  # Auto Creates /auth endpoint
-
 api.add_resource(Item, '/item/<string:name>')
 api.add_resource(ItemList, '/items')
-api.add_resource(UserRegister, '/register')
-api.add_resource(User, '/user')
+api.add_resource(Register, '/register')
+api.add_resource(Login, '/login')
 api.add_resource(Store, '/store/<string:name>')
 api.add_resource(StoreList, '/stores')
 
 if __name__ == '__main__':
-    # TODO: Add swagger integration
     app.run(debug=True)

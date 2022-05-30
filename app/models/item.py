@@ -1,7 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# standard python imports
-
 from app.db import db
 
 
@@ -25,11 +21,11 @@ class ItemModel(db.Model):
 
     @classmethod
     def find_by_name(cls, name):
-        return cls.query.filter_by(name=name).first()  # simple TOP 1 select
+        return cls.query.filter_by(name=name).first() 
 
-    def save_to_db(self):  # Upserting data
+    def save_to_db(self): 
         db.session.add(self)
-        db.session.commit()  # Balla
+        db.session.commit()
 
     def delete_from_db(self):
         db.session.delete(self)

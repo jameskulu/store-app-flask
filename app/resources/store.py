@@ -1,9 +1,3 @@
-#!/usr/bin/env python3
-
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# standard python imports
-
 from flask_restful import Resource
 from app.models.store import StoreModel
 from flask_jwt_extended import jwt_required

@@ -1,17 +1,17 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# standard python imports
+import os
 
 mssql = {'host': 'dbhost',
          'user': 'dbuser',
          'passwd': 'dbPwd',
-         'db': 'db'}
+         'db': 'db'
+         }
 
-postgresql = {'host': '0.0.0.0',
-         'user': 'postgres',
-         'passwd': 'madrids',
-         'db': 'db'}
-
+postgresql = {
+                'host': 'localhost',
+                'user': os.environ.get('POSTGRES_USER'),
+                'passwd': os.environ.get('POSTGRES_PASSWORD'),
+                'db': os.environ.get('POSTGRES_DB')
+            }
 
 mssqlConfig = "mssql+pyodbc://{}:{}@{}:1433/{}?driver=SQL+Server+Native+Client+10.0".format(mssql['user'], mssql['passwd'], mssql['host'], mssql['db'])
 postgresqlConfig = "postgresql+psycopg2://{}:{}@{}/{}".format(postgresql['user'], postgresql['passwd'], postgresql['host'], postgresql['db'])

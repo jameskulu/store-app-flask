@@ -1,7 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# standard python imports
-
 from flask_restful import Resource, reqparse
 from flask import jsonify
 from flask_jwt_extended import create_access_token, jwt_required
@@ -12,7 +8,7 @@ import json
 from app.util.logz import create_logger
 
 
-class User(Resource):
+class Login(Resource):
     def __init__(self):
         self.logger = create_logger()
 
@@ -23,14 +19,13 @@ class User(Resource):
                         help='This field cannot be left blank')
 
     def post(self):
-        data = User.parser.parse_args()
+        data = Login.parser.parse_args()
         username = data['username']
         password = data['password']
 
         user = UserModel.query.filter_by(username=username).one_or_none()
         if not user or not user.check_password(password):
             return {'message': 'Invalid Credentials.'}, 401
-        # Notice that we are passing in the actual sqlalchemy user object here
         access_token = create_access_token(
             identity=json.dumps(user, cls=AlchemyEncoder))
         return jsonify(access_token=access_token)
@@ -44,7 +39,7 @@ class User(Resource):
         )
 
 
-class UserRegister(Resource):
+class Register(Resource):
     def __init__(self):
         self.logger = create_logger()
 
@@ -55,7 +50,7 @@ class UserRegister(Resource):
                         help='This field cannot be left blank')
 
     def post(self):
-        data = UserRegister.parser.parse_args()
+        data = Register.parser.parse_args()
 
         if UserModel.find_by_username(data['username']):
             return {'message': 'User already exists'}, 400
